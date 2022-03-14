@@ -1,6 +1,6 @@
 from .utils_interfaces import IRequestDataHandler
 from .utils_interfaces import IResponseDataHandler
-from .utils_interfaces import IDumper
+from .utils_interfaces import IOrganizedDumper
 
 #Just copy the data of request
 class RequestDataCopier(IRequestDataHandler):
@@ -14,6 +14,9 @@ class ResponseDataCopier(IResponseDataHandler):
         return buffer
 
 #Organized is why it 
-class BytesToHexOrganizedDumper(IDumper):
+class BytesToHexOrganizedDumper(IOrganizedDumper):
     def dump(self, src: bytes, length: int):
-        pass
+        future_result = []
+        digits = 2
+        for i in range(0, len(src), length):
+            future_result.append(self.hexdump_bytes(src, digits))

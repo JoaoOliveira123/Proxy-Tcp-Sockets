@@ -1,8 +1,18 @@
 import sys
+import socket
+from typing import Union, Type
 
 from .proxy_interfaces import IProxy
+from .utils_interfaces import IUnorganizedDumper
+from .utils_interfaces import IOrganizedDumper
 
 class ProxyServer(IProxy):
+    def __init__(self, host: str, port: int,
+                    dumper: Union[Type[IOrganizedDumper], Type[IUnorganizedDumper]]):
+                    
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        super().__init__(host=host, port=port, dumper=dumper)
+
     def start_connection(self, clients_accepted: int):
         try:
             self.__build_server(clients_accepted)

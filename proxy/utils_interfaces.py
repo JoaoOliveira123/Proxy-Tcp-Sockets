@@ -22,6 +22,12 @@ class IOrganizedDumper(ABC):
         
 
         raise NotImplementedError()
+    
+    @abstractmethod
+    def print_dumper_value(self, value_dumped: str):
+        
+
+        raise NotImplementedError()
 
 class IUnorganizedDumper(ABC):
     @abstractmethod
