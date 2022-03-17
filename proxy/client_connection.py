@@ -10,7 +10,7 @@ class ProxyServer(IProxy):
     def __init__(self, host: str, port: int, 
                 dumper: Union[Type[IUnorganizedDumper], Type[IOrganizedDumper]]):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        super().__init__(host, port, dumper)
+        super().__init__(host=host, port=port, dumper=dumper)
 
     def start_connection(self, clients_accepted: int):
         try:
