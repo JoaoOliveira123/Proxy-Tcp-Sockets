@@ -28,5 +28,12 @@ class BytesToHexOrganizedDumper(IOrganizedDumper):
         for i in range(0, len(src), line_length):
             s = src[i:i+line_length]
             hexa = b' '.join([b'%0*X' % (self.digits, x) for x in s])
-            text = b''.join(x if 0x20 <= ord(x) < 0x7f else b'.' for x in s)
-            yield b''
+            text = b''.join([x if 0x20 <= ord(x) < 0x7f else b'.' for x in s])
+            yield b'%04X  %-*s  %s' % (i, line_length*(self.digits + 1), hexa, text)
+    
+    @property
+    def result(self):
+        return self.__result
+    
+    def print_hexa_value(self):
+        print(b'\n'.join(self.result).decode())
